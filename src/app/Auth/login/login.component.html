@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="left">
+    <div class="content">
+      <img src="assets/images/loginimage.svg" alt="" style="width: 40%;">
+      <img src="assets/images/carlogo.png" alt="" style="width: 50%; margin-left: 10%;">
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="rightContent">
+      <img src="assets/images/BeemLogo.svg" alt="">
+      <p class="title">connexion</p>
+      <p class="description">Accédez-vous à l’espace d’administration de BEEM SMART TAXI !
+      </p>
+      <div class="loginForm">
+        <form [formGroup]="AuthForm">
+          <div class="inputfield">
+            <input type="text" formControlName="username" placeholder="Login"  autocomplete="disabled" >
+          </div>
+          <div class="inputfield">
+            <input type="password" formControlName="password" placeholder="Mot de passe" autocomplete="disabled" >
+          </div>
+        </form>
+        <div class="btn" (click)="LoginMethod()">
+          <p>Se connecter</p>
+
+        </div>
+        <p *ngIf="errorLogin" style="color: red;text-align: center">Error username or passowrd</p>
+      </div>
+    </div>
+  </div>
+
+</div>

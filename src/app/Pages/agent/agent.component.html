@@ -1,0 +1,101 @@
+<div class="pageContainer">
+   <welcome></welcome>
+    <div class="container">
+      <div class="specify">
+        <h2 style="font-weight: bolder;font-family: Montserrat;color:#3D3751">Les Agents</h2>
+        <!-- <div class="searchField">
+          <img src="assets/images/Search.svg" alt="" style="width: 5%">
+          <form>
+            <input type="text" name="search" placeholder="rechercher ...">
+          </form>
+        </div> -->
+        <!--    <div class="filtrebtn" (click)="ShowFiltres()">
+              <img src="assets/images/filtrer.svg">
+              <p>Filtrer</p>
+            </div>-->
+        <div class="Addbtn" (click)="AddAgent()">
+          <img src="assets/images/AddIcon.svg" style="width: 10%">
+          <p>Ajouter un agent</p>
+        </div>
+      </div>
+      <!--<div class="specify" *ngIf="FiltreShow ">
+        <div class="dates">
+          <input class="dateinput" type="date">
+          <select class="blue dateinput">
+            <option selected="selected">Model</option>
+            <option>Model 2</option>
+            <option>Model 3</option>
+            <option>Model 4</option>
+          </select>
+    
+          <select class="blue dateinput">
+            <option selected="selected">immatricule</option>
+            <option>immatricule 2</option>
+            <option>immatricule 3</option>
+            <option>immatricule 4</option>
+          </select>
+        </div>
+    
+    
+    
+      </div>-->
+      <div class="specify" >
+        <div class="tableContent">
+          <table >
+            <tr class="lineTable">
+              <th style="text-align: center">Prénom</th>
+              <th style="text-align: center">Nom</th>
+              <th style="text-align: center">Username</th>
+              <th style="text-align: center">Total des courses</th>
+              <th style="text-align: center">Courses/jour</th>
+              <th style="text-align: center">Agence</th> 
+
+              <th style="text-align: center">Statut</th> 
+
+              <th style="text-align: center"></th>
+         
+
+            </tr>
+
+            <tr *ngFor="let agent of Agents| paginate: {
+                  id:'listing_paginationClient', itemsPerPage: pageSize,currentPage: page, totalItems: totalPages
+                  }">
+              <td style="text-align: center;white-space: inherit"> {{agent.first_name}}</td>
+              <td style="text-align: center;white-space: inherit"> {{agent.last_name}}</td>
+              <td style="text-align: center;white-space: inherit"> {{agent.user_name}}</td>
+              <td style="text-align: center"> {{agent.totalrace}}</td>
+              <td style="text-align: center"> {{agent.totalperday}}</td>
+              <td style="text-align: center"> {{agent.intitule}}</td>
+
+              <td style="text-align: center" *ngIf="agent.state == 'ENABLED'">Activé</td> 
+
+              <td style="text-align: center" > <img style="width: 10%;display: flex;align-items: center;justify-content: center" (click)="updateAction(agent)" src="assets/images/update_icon.svg">
+           
+          
+              
+                <img src="assets/images/deleteRed.svg"(click)="blockAgent(agent)"  style="width: 10%;display: flex;align-items: center;justify-content: center;margin-left: 5%;">
+              
+            </td>
+            </tr>
+    
+          </table>
+          <div class="controls" style=" font-family: Montserrat;margin-top: 2%;margin-bottom: 3%;display: flex;flex-direction: row;align-items: center;justify-content: left">
+            <pagination-controls id="listing_paginationClient" (pageChange)="handlePageChange($event)"       previousLabel="Précédente"
+            nextLabel="Suivante">
+    
+            </pagination-controls>
+    
+            <select class="paginationSelect" [(ngModel)]="pageSize" (change)="getAllAgents()" >
+              <option>5</option>
+              <option>10</option>
+              <option>15</option>
+              <option>20</option>
+            </select>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+      <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+    </div>
+    

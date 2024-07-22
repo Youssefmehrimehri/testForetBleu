@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!--<title>Djerba Resort</title>-->
+    <!-- <title>Djerba casino</title>-->
+    <!--<title>Royal Garden</title>-->
+    <!--<title>Palm Azur</title>-->
+    <title>La Forêt Bleue</title>
+    <!--  <title>Patio Mezraya</title>-->
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="./assets/images/beem-logo.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,200&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZbg7vdh6WEQX17fF9fIVcZ2CYrmTdhe8&libraries=places"></script>
+    <script>
+      // async function loadGoogleMaps() {
+      //   var reqHeader = new Headers({
+      //     "Content-Type": "application/json",
+      //     Authorization: "Bearer " + localStorage.getItem("token"),
+      //     "ngrok-skip-browser-warning": "69420",
+      //   });
+
+      //   try {
+      //     const response = await fetch(
+      //       "https://platformweb.beem.com.tn/endpoints/api/v1/agent/googleKey/findMain",
+      //       {
+      //         headers: reqHeader,
+      //       }
+      //     );
+
+      //     const data = await response.json();
+  
+
+      //     return data.data; 
+      //   } catch (error) {
+      //     console.error("There was a problem with the fetch operation:", error);
+      //     return null; 
+      //   }
+      // }
+
+      // async function initMap() {
+      //   let keyApi;
+      //   try {
+      //     if (String(localStorage.getItem("e"))) {
+      //       keyApi = deobfuscateApiKey(String(localStorage.getItem("e")));
+      //       // console.log("the solution");
+      //     } else {
+      //       keyApi = await loadGoogleMaps();
+      //       // console.log(keyApi, "key");
+      //     }
+
+      //     if (keyApi) {
+      //       // console.log(keyApi, "success");
+      //       const script = document.createElement("script");
+      //       script.src = `https://maps.googleapis.com/maps/api/js?key=${keyApi}&libraries=places`;
+      //       script.async = true;
+
+      //       document.head.appendChild(script);
+      //     } else {
+      //       console.error("Failed to retrieve Google Maps API key.");
+      //     }
+      //   } catch (error) {
+      //     console.error("An error occurred during initialization:", error);
+      //   }
+      // }
+      // function deobfuscateApiKey(obfuscatedApiKey) {
+      //   const obfuscatedArray = obfuscatedApiKey.split(""); 
+      //   const originalArray = obfuscatedArray.map((char) =>
+      //     String.fromCharCode(char.charCodeAt(0) - 1)
+      //   ); 
+      //   const originalApiKey = originalArray.join(""); 
+      //   return originalApiKey;
+      // }
+      // initMap(); 
+    </script>
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~ngx-toastr/toastr.css';
+*{
+    font-family: 'Poppins',sans-serif;
+  }
+  pac-container pac-logo hdpi {
+    z-index: 10000 !important;
+  }

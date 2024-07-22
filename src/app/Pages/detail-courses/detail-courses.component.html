@@ -1,0 +1,131 @@
+<div class="pageContainer">
+
+<welcome></welcome>
+
+  <div class="container">
+    <div class="specify">
+      <div class="entete">
+        <div class="enteteItem">
+          <label>Date:</label>
+          <p>{{CoursesDetail?.race?.createdAt
+            }}</p>
+        </div>
+        <div class="enteteItem">
+          <label>Client:</label>
+          <p *ngIf="CoursesDetail.race.client?.lastName != null; else elseBlock"style="width: 15%;text-align: center">{{CoursesDetail.race.client?.lastName}}</p>
+          <ng-template #elseBlock>Stafim</ng-template>    
+            </div>
+        <div class="enteteItem">
+          <label>Numero de téléphone:</label>
+          <p>{{CoursesDetail.race.client.phoneNumber}}</p>
+        </div>
+        <div class="enteteItem">
+          <label>Origine:</label>
+          <p>{{CoursesDetail.race.addressBegin}}</p>
+        </div>
+        <div class="enteteItem">
+          <label>Direction:</label>
+          <p>{{CoursesDetail.race.addressEnd}} </p>
+        </div>
+        <div class="enteteItem">
+          <label>Statut:</label>
+          {{CoursesDetail.race.raceState}}
+        </div>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="title">
+            <p>Chauffeur</p>
+          </div>
+          <div class="items">
+            <div class="item">
+              <div class="data">
+                <p *ngIf="CoursesDetail.race?.driver" >{{CoursesDetail.race?.driver?.firstName}} {{CoursesDetail.race?.driver?.lastName}} </p>
+                <p *ngIf="!CoursesDetail.race?.driver">--</p>
+              </div>
+              <div class="line">
+                <p>Nom</p>
+              </div>
+            </div>
+            <div class="item">
+              <div class="data">
+                <p *ngIf="CoursesDetail.race?.driver">{{CoursesDetail.race?.driver?.phoneNumber}}</p>
+                <p *ngIf="!CoursesDetail.race?.driver">--</p>
+              </div>
+              <div class="line">
+                <p>Téléphone</p>
+              </div>
+            </div>
+            <div style="border:none" class="item">
+              <div class="data">
+                <p *ngIf="CoursesDetail.car">{{CoursesDetail.car?.model?.libelle}} - {{CoursesDetail.car?.model?.modelType}}</p>
+                <p *ngIf="!CoursesDetail.car">--</p>
+              </div>
+              <div class="line">
+                <p>Voiture</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="title">
+            <p>Distance</p>
+          </div>
+          <div class="items">
+            <div class="item">
+              <div class="data">
+                <p style="fontSize: 25px">
+                  {{CoursesDetail.race.distance}} km</p>
+              </div>
+              <div class="line">
+                <p>Distance prévu</p>
+              </div>
+            </div>
+            <div class="item" style="border:none">
+              <div class="data">
+                <p style="fontSize: 25px">-- km</p>
+              </div>
+              <div class="line">
+                <p>Distance réel</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="title">
+            <p>Montant</p>
+          </div>
+          <div class="items">
+            <div class="item">
+              <div class="data">
+                <p style="fontSize: 25px">{{CoursesDetail.race.expectedPrice.toFixed(3)}} DT</p>
+              </div>
+              <div class="line">
+                <p>Montant prévu</p>
+              </div>
+            </div>
+            <div class="item" style="border:none" >
+              <div class="data">
+                <p style="fontSize: 25px" *ngIf="CoursesDetail.race?.price">{{CoursesDetail.race.price.toFixed(3)}} DT</p>
+                <p style="fontSize: 25px" *ngIf="!CoursesDetail.race?.price">--</p>
+              </div>
+             <!-- <div class="line">
+                <p>Montant réel</p>
+                <button *ngIf="CoursesDetail.race.raceState =='END'" style="border: none;background-color: #66CFC8;padding: 8%;border-radius: 10px" (click)="showUpdate()">Modifier</button>
+              </div>-->
+            </div>
+            <!-- <form [formGroup]="UpdatePrice" class="item" style="border:none" *ngIf="!showRealPrice">
+               <div class="data">
+                 <input type="number" formControlName="price" style="border: none; height: 30%;margin-top: 15%" autocomplete="off"  required>
+               </div>
+               <div class="line">
+
+                 <button style="border: none;background-color: #66CFC8;padding: 18%;border-radius: 10px" (click)="UpdateRealPrice()">Modifier</button>
+               </div>
+             </form>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

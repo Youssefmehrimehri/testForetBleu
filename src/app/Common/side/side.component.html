@@ -1,0 +1,37 @@
+<div>
+  <div class="sidebar">
+    <div class="logo">
+     
+        <img src="assets/images/beem-logo.png" style="width: auto">
+     
+    </div>
+    <div class="options">
+      <div class="tooltip" *ngIf="hasRequiredRole('ENTREPRISE_ADMIN') || hasRequiredRole('ENTREPRISE_AGENT')|| hasRequiredRole('ENTREPRISE_SUPER_ADMIN')" [routerLink]="['/ConsulterCourses']"  [class.active]="router.url.startsWith('/ConsulterCourses')" [routerLinkActive]="['active']">
+        <img src="assets/images/wallet.svg" >
+
+      </div>
+
+      <div *ngIf="hasRequiredRole('ENTREPRISE_ADMIN') || hasRequiredRole('ENTREPRISE_SUPER_ADMIN')|| hasRequiredRole('ENTREPRISE_AGENT')||hasRequiredRole('ENTREPRISE_CLIENT')" class="tooltip" [routerLink]="['/Map']"  [class.active]="router.url.startsWith('/Map')" [routerLinkActive]="['active']">
+        <img src="assets/Map_position.svg">
+
+      </div>
+      <div class="tooltip" *ngIf="hasRequiredRole('ENTREPRISE_ADMIN')|| hasRequiredRole('ENTREPRISE_SUPER_ADMIN') " [routerLink]="['/agent']"  [class.active]="router.url.startsWith('/agent')" [routerLinkActive]="['active']">
+        <img  src="assets/images/profile.png">
+
+      </div>
+      <div class="tooltip" *ngIf="hasRequiredRole('ENTREPRISE_SUPER_ADMIN') " [routerLink]="['/societe']"  [class.active]="router.url.startsWith('/societe')" [routerLinkActive]="['active']">
+        <img  src="assets/images/trade.png"  style="width: 20px">
+
+      </div>
+
+    </div>
+    <div class="logout">
+      <a  *ngIf="hasRequiredRole('ENTREPRISE_ADMIN') || hasRequiredRole('ENTREPRISE_SUPER_ADMIN')|| hasRequiredRole('ENTREPRISE_AGENT') " (click)="logout()">
+        <img src="assets/images/logOut.png">
+      </a>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
+<div  class="footer">Producted By :<img src="assets/images/digid.svg" style="width: 4%;margin-left: 1%"></div>
+<app-my-loader></app-my-loader>

@@ -1,0 +1,510 @@
+<div class="pageContainer">
+  <welcome></welcome>
+
+  <div class="container">
+    <div class="specify" >
+      <div>
+        <h2 style="font-weight: bolder; font-family: Montserrat; color: #3d3751">
+          Gestion des courses
+        </h2>
+      </div>
+    
+      <!-- <div class="searchField">
+        <img src="assets/images/Search.svg" alt="" style="width: 5%" />
+        <form>
+          <input
+            type="text"
+            name="search"
+            placeholder="rechercher ..."
+            (input)="changeSearch($event)"
+          />
+        </form>
+      </div> -->
+      <div style=" display: flex; gap : 2%">
+        <ng-autocomplete
+        *ngIf=" hasRequiredRole('ENTREPRISE_SUPER_ADMIN')"
+        [data]="agence"
+        [searchKeyword]="nameAgency"
+        (selected)="agencyInputs($event)"
+        (inputChanged)="agencyInputs($event)"
+        (inputFocused)="onFocusedAgency($event)"
+        (inputCleared)="resetDataAgency()"
+        [itemTemplate]="itemTempl"
+        placeholder="Chercher par agence"
+        [notFoundTemplate]="notFoundTemplate"
+     
+        class="autoComplete"
+        style="width: 250px"
+      ></ng-autocomplete>
+      <ng-template #itemTempl let-item>
+        <div>
+          <a [innerHTML]="item.intitule" style="display: inline; font-weight: bold"></a>
+        </div>
+      </ng-template>
+      <ng-template #notFoundTemplate let-notFound>
+        <div style="color: red" [innerHTML]="NotFound"></div>
+      </ng-template>
+      
+      <ng-autocomplete
+      *ngIf="agencyInput != '' && hasRequiredRole('ENTREPRISE_SUPER_ADMIN')"
+        [data]="agent"
+        [searchKeyword]="firstName"
+        (selected)="agentInputs($event)"
+        (inputChanged)="agentInputs($event)"
+        (inputFocused)="onFocusedAgent($event)"
+        (inputCleared)="resetData()"
+        [itemTemplate]="itemTemp"
+        placeholder="Chercher par agent"
+        [notFoundTemplate]="notFoundTemplate"
+        class="autoComplete"
+        style="width: 250px"
+      ></ng-autocomplete>
+      <ng-template #itemTemp let-item>
+        <div>
+          <a [innerHTML]="item.firstName" style="display: inline; font-weight: bold"></a>
+        </div>
+      </ng-template>
+      <ng-template #notFoundTemplate let-notFound>
+        <div style="color: red" [innerHTML]="NotFound"></div>
+      </ng-template>
+      <ng-autocomplete
+      *ngIf=" hasRequiredRole('ENTREPRISE_ADMIN')"
+        [data]="agentForagent"
+        [searchKeyword]="firstName"
+        historyIdentifier="agence"
+        (selected)="agentForagentInputs($event)"
+        (inputChanged)="agentForagentInputs($event)"
+        (inputFocused)="onFocusedagentForagent($event)"
+        (inputCleared)="resetDataAgentForAgent()"
+        [itemTemplate]="itemTemplate"
+        placeholder="Chercher par agent"
+        [notFoundTemplate]="notFoundTemplate"
+        class="autoComplete"
+        style="width: 250px"
+      ></ng-autocomplete>
+      <ng-template #itemTemplate let-item>
+        <div>
+          <a [innerHTML]="item.firstName" style="display: inline; font-weight: bold"></a>
+        </div>
+      </ng-template>
+      <ng-template #notFoundTemplate let-notFound>
+        <div style="color: red" [innerHTML]="NotFound"></div>
+      </ng-template>
+
+      <div
+
+      >
+
+        <input
+          class="inputRange"
+          type="text"
+          name="daterangeInput"
+          daterangepicker
+          [options]="options"
+          (cancelDaterangepicker)="calendarCanceled($event)"
+          (selected)="selectedDate($event, daterange)"
+        />
+      </div>
+      </div>
+    
+    </div>
+    <div
+      class="ACard"
+      *ngIf="hasRequiredRole('ENTREPRISE_SUPER_ADMIN')"
+      style="background: white; border: 1px solid #441879; width: 250px"
+    >
+      <p style="font-weight: bold; text-align: center; margin-top: 10%">
+        Les courses 
+        <label *ngIf="agencyInput == '' && selectDate ==''    ">d'aujourd'hui</label>
+      </p>
+      <input
+      class="inputNumber"
+   type="text"
+        disabled
+        
+        [(ngModel)]="CourseInCurrentDay"
+      
+      />
+    </div>
+    <div
+    class="ACard"
+    *ngIf="hasRequiredRole('ENTREPRISE_ADMIN')"
+    style="background: white; border: 1px solid #441879; width: 250px"
+  >
+    <p style="font-weight: bold; text-align: center; margin-top: 10%">
+      Les courses 
+      <label *ngIf="agentForAgentShow=='' && selectDate =='' ">d'aujourd'hui</label>
+    </p>
+    <p
+      style="
+        text-align: center;
+        font-weight: bold;
+        margin-top: -5%;
+        color: green;
+      "
+    >
+      {{ CourseInCurrentDay }}
+    </p>
+  </div>
+  <div
+  class="ACard"
+  *ngIf="hasRequiredRole('ENTREPRISE_AGENT')"
+  style="background: white; border: 1px solid #441879; width: 250px"
+>
+  <p style="font-weight: bold; text-align: center; margin-top: 10%">
+    Les courses 
+    <label *ngIf=" selectDate =='' ">d'aujourd'hui</label>
+  </p>
+  <p
+    style="
+      text-align: center;
+      font-weight: bold;
+      margin-top: -5%;
+      color: green;
+    "
+  >
+    {{ CourseInCurrentDay }}
+  </p>
+</div>
+  <!-- <div
+  class="ACard"
+  *ngIf="hasRequiredRole('ENTREPRISE_AGENT')"
+  style="background: white; border: 1px solid #441879; width: 250px"
+>
+  <p style="font-weight: bold; text-align: center; margin-top: 10%">
+    Les courses 
+    <label *ngIf=" selectDate == ''  ">d'aujourd'hui</label>
+  </p>
+  <p
+    style="
+      text-align: center;
+      font-weight: bold;
+      margin-top: -5%;
+      color: green;
+    "
+  >
+    {{ CourseInCurrentDay }}
+  </p>
+</div> -->
+
+
+    <div class="specify">
+      <div class="tableContent">
+        <table>
+          <tr class="lineTable">
+            <th style="width: 15%; text-align: center">Date</th>
+            <th style="width: 15%; text-align: center">Client</th>
+            <th style="width: 15%; text-align: center">Num client</th>
+            <!--  <th style="width: 10%;text-align: center">Num driver</th>
+            <th style="width: 10%;text-align: center">Nom driver</th>-->
+            <th style="width: 10%;text-align: center">Nom agent</th>
+            <th style="width: 20%; text-align: center">Origine</th>
+            <th style="width: 15%; text-align: center">Direction</th>
+            <!--<th style="width: 15%;text-align: center">Durée</th>-->
+
+            <th style="width: 15%; text-align: center"></th>
+          </tr>
+
+          <tr
+            *ngFor="
+              let course of Courses
+                | paginate
+                  : {
+                      id: 'listing_pagination1',
+                      itemsPerPage: pageSize,
+                      currentPage: page,
+                      totalItems: totalPages
+                    }
+            "
+            [ngClass]="{
+              NewClass: course.raceState === 'NEW',
+              ExpiredClass: course.raceState === 'EXPIRED',
+              AcceptedClass: course.raceState === 'ACCEPTED',
+              OnHoldClass: course.raceState === 'ON_HOLD',
+              InProgressClass: course.raceState === 'IN_PROGRESS',
+              CanceledClass:
+                course.raceState === 'CANCELED' ||
+                course.raceState === 'CANCELED_ADMIN',
+              EndClass: course.raceState === 'END'
+            }"
+          >
+            <td style="width: 15%; text-align: center">
+              {{ course.createdAt }}
+            </td>
+            <td
+              *ngIf="course.client?.lastName != null; else elseBlock"
+              style="width: 15%; text-align: center"
+            >
+              {{ course.client?.lastName }}
+            </td>
+            <ng-template #elseBlock>{{ nomAgence }}</ng-template>
+            <!-- 
+            <td style="width: 15%;text-align: center" *ngIf="course.client?.phoneNumber !== '77885544'
+             && course.client?.phoneNumber !== '77885500'
+             && course.client?.phoneNumber !== '77885511'
+             && course.client?.phoneNumber !== '77885522'
+             && course.client?.phoneNumber !== '77885533'
+             && course.client?.phoneNumber !== '77885555'
+             && course.client?.phoneNumber !== '77885566'" > {{course.client?.lastName}}</td>
+            <td style="width: 15%;text-align: center" *ngIf="course.client?.phoneNumber=='77885544'"> Stafim</td>
+            <td style="width: 15%;text-align: center" *ngIf="course.client?.phoneNumber=='77885500'"> Djerba casino </td>
+            <td style="width: 15%;text-align: center" *ngIf="course.client?.phoneNumber=='77885511'"> Royal Garden </td>
+            <td style="width: 15%;text-align: center" *ngIf="course.client?.phoneNumber=='77885522'"> Djerba Resort </td>
+            <td style="width: 15%;text-align: center" *ngIf="course.client?.phoneNumber=='77885533'"> École Marie Curie </td>
+            <td style="width: 15%;text-align: center" *ngIf="course.client?.phoneNumber=='77885555'"> Palm Azur Djerba </td>
+            <td style="width: 15%;text-align: center" *ngIf="course.client?.phoneNumber=='77885566'"> Patio Mezraya </td> -->
+
+            <td
+              style="width: 15%; text-align: center"
+              *ngIf="
+                course.client?.phoneNumber !== '77885544' &&
+                course.client?.phoneNumber !== '77885500' &&
+                course.client?.phoneNumber !== '77885511' &&
+                course.client?.phoneNumber !== '77885522' &&
+                course.client?.phoneNumber !== '77885533' &&
+                course.client?.phoneNumber !== '77885555' &&
+                course.client?.phoneNumber !== '77885566'
+              "
+            >
+              {{ course.client?.phoneNumber }}
+            </td>
+          
+        <td style="width: 10%;text-align: center" >{{course.agent?.firstName}} {{course.agent?.lastName}}</td>
+            <!--   <td style="width: 10%;text-align: center" *ngIf="!course.driver">&#45;&#45;</td>
+            <td style="width: 10%;text-align: center" *ngIf="course.driver">{{course.driver?.phoneNumber}}</td>
+            <td style="width: 10%;text-align: center" *ngIf="!course.driver">&#45;&#45;</td>
+            <td style="width: 10%;text-align: center" *ngIf="course.driver">{{course.driver?.firstName}}</td>-->
+            <td style="width: 20%; text-align: center">
+              {{ course.addressBegin }}
+            </td>
+            <td style="width: 15%; text-align: center">
+              {{ course.addressEnd }}
+            </td>
+            <!--    <td style="width: 15%;text-align: center" *ngIf="calculateDateDifference(course.beginDate, course.endDate)"> {{ calculateDateDifference(course.beginDate, course.endDate) }}</td>
+            <td style="width: 15%;text-align: center" *ngIf="calculateDateDifference(course.beginDate, course.endDate)== null">&#45;&#45;
+            </td>-->
+
+            <td style="width: 15%; text-align: center">
+              <img
+                (click)="ShowDetail(course.id, course)"
+                style="
+                  width: 15%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+                src="assets/more.png"
+              />
+
+              <!--  <img (click)="clickHandler1($event,course.id)"
+                     style="width: 25%;display: flex;align-items: center;justify-content: center;margin-left: 14%"
+                     src="assets/taxiCourse.png">-->
+            </td>
+          </tr>
+        </table>
+
+        <div
+          class="controls"
+          style="
+            font-family: Montserrat;
+            margin-bottom: 3%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: left;
+          "
+        >
+          <pagination-controls
+            id="listing_pagination1"
+            (pageChange)="handlePageChange($event)"       previousLabel="Précédente"
+            nextLabel="Suivante"
+          ></pagination-controls>
+
+          <select
+            class="paginationSelect"
+            [(ngModel)]="pageSize"
+            (change)="getAllCourses()"
+          >
+            <option>5</option>
+            <option>10</option>
+            <option>15</option>
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="hover_bkgr_fricc" *ngIf="ispopUpShow" appOutside>
+  <span class="helper"></span>
+  <div class="inside-popup" style="padding: 3% 0">
+    <div class="title" style="margin-bottom: 6%">
+      <p style="font-size: 19px; font-weight: bold; font-family: Inter">
+        Details de la course
+      </p>
+    </div>
+    <!--<input class="input"  name="text" placeholder="Num tel..." type="search" style="margin-bottom: 3%">-->
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        width: 80%;
+        justify-content: space-between;
+        text-align: left;
+        margin-left: 10%;
+        margin-bottom: 3%;
+      "
+    >
+      <div style="width: 50%">
+        <label
+          style="font-weight: bold; align-items: center; font-family: Inter"
+        >
+          Client :
+        </label>
+        <label
+          *ngIf="CourseObject.client?.lastName != null; else elseBlock"
+          style="width: 15%; text-align: center"
+          >{{ CourseObject.client?.lastName }}</label
+        >
+        <ng-template #elseBlock>{{ nomAgence }}</ng-template>
+        <label
+          style="font-family: Inter"
+          *ngIf="CourseObject?.client?.phoneNumber == '77885544'"
+          >Stafim</label
+        >
+        <label
+          style="font-family: Inter"
+          *ngIf="CourseObject?.client?.phoneNumber == '77885500'"
+          >Djerba casino</label
+        >
+        <label
+          style="font-family: Inter"
+          *ngIf="CourseObject?.client?.phoneNumber == '77885511'"
+          >Royal Garden</label
+        >
+        <label
+          style="font-family: Inter"
+          *ngIf="CourseObject?.client?.phoneNumber == '77885522'"
+          >Djerba Resort</label
+        >
+        <label
+          style="font-family: Inter"
+          *ngIf="CourseObject?.client?.phoneNumber == '77885533'"
+          >École Marie Curie</label
+        >
+        <label
+          style="font-family: Inter"
+          *ngIf="CourseObject?.client?.phoneNumber == '77885555'"
+          >Palm Azur Djerba</label
+        >
+        <label
+          style="font-family: Inter"
+          *ngIf="CourseObject?.client?.phoneNumber == '77885566'"
+          >Patio Mezraya</label
+        >
+      </div>
+      <div style="width: 50%">
+        <label
+          style="font-weight: bold; align-items: center; font-family: Inter"
+        >
+          Num Téléphone :
+        </label>
+        <label style="font-family: Inter">
+          {{ CourseObject?.client.phoneNumber }}
+        </label>
+      </div>
+    </div>
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        width: 80%;
+        justify-content: space-between;
+        text-align: left;
+        margin-left: 10%;
+        margin-bottom: 3%;
+      "
+    >
+      <div style="width: 50%">
+        <label
+          style="font-weight: bold; align-items: center; font-family: Inter"
+        >
+          Origine :
+        </label>
+        <label style="font-family: Inter">
+          {{ CourseObject?.addressBegin }}
+        </label>
+      </div>
+      <div style="width: 50%">
+        <label
+          style="font-weight: bold; align-items: center; font-family: Inter"
+        >
+          Direction :
+        </label>
+        <label style="font-family: Inter">
+          {{ CourseObject?.addressEnd }}
+        </label>
+      </div>
+    </div>
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        width: 80%;
+        justify-content: space-between;
+        text-align: left;
+        margin-left: 10%;
+        margin-bottom: 3%;
+      "
+    >
+      <div style="width: 50%">
+        <label
+          style="font-weight: bold; align-items: center; font-family: Inter"
+        >
+          Distance :
+        </label>
+        <label style="font-family: Inter">
+          {{ CourseObject?.distance / 1000 }} Km
+        </label>
+      </div>
+      <div style="width: 50%">
+        <label
+          style="font-weight: bold; align-items: center; font-family: Inter"
+        >
+          Prix :
+        </label>
+        <label style="font-family: Inter">
+          {{ CourseObject?.expectedPrice }} TND
+        </label>
+      </div>
+    </div>
+    <div class="items">
+      <!--      <button class="button-41" role="button"
+              style="cursor:pointer;background-image: linear-gradient(-180deg, rgb(102,207,200), #00bd68);">
+        Confirmer
+      </button>-->
+
+      <button
+        class="button-42"
+        role="button"
+        style="
+          cursor: pointer;
+          background-image: linear-gradient(
+            -180deg,
+            rgba(0, 0, 255, 0),
+            rgba(0, 0, 255, 0)
+          );
+          color: #181a36;
+          border: rgba(117, 125, 136, 0.45) 1px solid;
+          margin-left: 2%;
+          margin-top: 3%;
+        "
+        (click)="close()"
+      >
+        Annuler
+      </button>
+    </div>
+  </div>
+</div>

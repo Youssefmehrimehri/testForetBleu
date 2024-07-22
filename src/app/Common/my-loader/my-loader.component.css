@@ -1,0 +1,13 @@
+.loading-spinner{
+  position: absolute;
+  top: 4px;
+  right: 40px;
+}
+
+.loading-spinner img{
+  align-self: end;
+}
+
+.loading-message{
+  align-self: start;
+}

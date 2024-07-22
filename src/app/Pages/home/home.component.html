@@ -1,0 +1,339 @@
+<div class="pageContainer">
+  <span id="uptarget"></span>
+  <welcome></welcome>
+  <div class="container">
+    <div class="specify">
+      <input
+        #destinationInput
+        type="text"
+        class="input"
+        placeholder="Entrer la destination"
+        [(ngModel)]="destination"
+        (keyup)="onDestinationInput()"
+        style="margin-bottom: 4%; width: 50%; font-size: 18px"
+      />
+      <div *ngIf="loading" class="loading-indicator">Chargement...</div>
+
+      <google-map #map [center]="center" [zoom]="zoom" width="75vw">
+        <map-marker
+          [position]="center"
+          [options]="markerClientIcon"
+        ></map-marker>
+        <map-marker
+          *ngIf="destination"
+          [position]="markerPosition"
+          [options]="markerClientIconGreen"
+        ></map-marker>
+        <map-polyline
+          *ngIf="destination"
+          [options]="polylineOptions"
+          [path]="polylinePath"
+        ></map-polyline>
+      </google-map>
+
+      <!--
+    <p>Distance to destination: {{ distanceKm }} kilometers</p>
+    Current time: {{ currentTime }}
+    Status: {{ status }}
+    expected Price: {{ expectedPrice }}
+
+    -->
+      <div
+        *ngIf="destination"
+        id="targetTag"
+        style="
+          width: 90%;
+          height: 25vh;
+          background: rgba(255, 255, 255, 0.1);
+          margin-bottom: 10%;
+          margin-top: 3%;
+          border-radius: 10px;
+          box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+        "
+      >
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            justify-content: left;
+            margin-bottom: 3%;
+          "
+        >
+          <img
+            src="assets/Location.svg"
+            style="margin-right: 2%; margin-left: 2%"
+          />
+          <p style="font-family: Inter; font-weight: 600">{{ adress }}</p>
+        </div>
+
+        <div style="display: flex; flex-direction: row">
+          <!-- <div style="text-align: center; height: 10vh;width: 35%;justify-content: center;align-items: center;background-color: rgba(250, 193, 0, 0.2);border-radius: 15px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);margin-right: 1%;margin-left: 2%">
+          <p style="font-family: Inter;font-weight: 600">Distance</p>
+          <p style="font-family: Inter;font-weight: 600">{{expectedDistance}} km</p>
+        </div>-->
+
+          <div
+            style="
+              text-align: center;
+              height: 10vh;
+              width: 35%;
+              justify-content: center;
+              align-items: center;
+              background-color: rgba(250, 193, 0, 0.2);
+              border-radius: 15px;
+              box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+              margin-left: 2%;
+              margin-right: 1%;
+            "
+          >
+            <p style="font-family: Inter; font-weight: 600">Prix</p>
+            <p *ngIf="showPrice" style="font-family: Inter; font-weight: 600">
+              {{ expectedPrice | number }} TND
+            </p>
+            <p *ngIf="!showPrice" style="font-family: Inter; font-weight: 600">
+              Chargement..
+            </p>
+          </div>
+
+          <!--     <div style="text-align: center; height: 10vh;width: 35%;justify-content: center;align-items: center;background-color: rgba(250, 193, 0, 0.2);border-radius: 15px; box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);margin-left: 2%">
+          <p style="font-family: Inter;font-weight: 600">Durée</p>
+          <p style="font-family: Inter;font-weight: 600">{{DurationExpected}} Min</p>
+        </div>-->
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              width: 70%;
+              margin-left: 20%;
+            "
+          >
+            <div
+              style="
+                cursor: pointer;
+                height: 5vh;
+                width: 50%;
+                background-color: rgba(102, 207, 200, 1);
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 2%;
+                border-radius: 8px;
+                display: flex;
+                flex-direction: row;
+              "
+                     *ngIf="showPrice"
+
+              (click)="ConfirmCourse()"
+            >
+              <img src="assets/Tick_Square.svg" style="margin-right: 9%" />
+              <p style="color: white; font-family: Inter">Confirmer</p>
+            </div>
+
+            <div
+              (click)="reset()"
+              style="
+                cursor: pointer;
+                height: 5vh;
+                width: 50%;
+                background-color: rgba(107, 122, 145, 0.3);
+                justify-content: center;
+                align-items: center;
+                border-radius: 8px;
+                display: flex;
+                flex-direction: row;
+              "
+            >
+              <img src="assets/Reload.svg" style="margin-right: 9%" />
+              <p style="color: white; font-family: Inter">Reset</p>
+            </div>
+          </div>
+        </div>
+        <!--   <div id="map" style="height: 0;"></div>
+  -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="hover_bkgr_fricc" *ngIf="ispopUpShow" appOutside>
+  <span class="helper"></span>
+  <div class="inside-popup" style="padding: 3% 0">
+    <div class="title">
+      <p style="font-size: 19px">
+        Etes-vous sûr de vouloir confirmer la course ?
+      </p>
+    </div>
+    <div class="form-item">
+      <input
+        class="input"
+        [(ngModel)]="numTel"
+        (input)="checkInputLength()"
+        name="text"
+        placeholder="Téléphone"
+        type="tel"
+        style="margin-bottom: 3%"
+        required
+      />
+    </div>
+    <div *ngIf="showErrorNumTel" class="validation-message">
+      Le numéro doit être à 8 chiffres.
+    </div>
+    <div class="form-item" *ngIf="!hasRequiredRole('ENTREPRISE_CLIENT')">
+      <select
+        style="margin-bottom: 3%"
+        [(ngModel)]="paiementType"
+        aria-placeholder="Les types de paiements"
+        (change)="checkInputLength()"
+      >
+        <option value="" disabled selected hidden>
+          Sélectionnez une option de paiement
+        </option>
+
+        <option *ngFor="let p of paiement" value="{{ p }}">{{ p }}</option>
+      </select>
+    </div>
+    <div class="form-item">
+      <input
+        *ngIf="paiementType === 'Prise en charge partielle'"
+        class="input"
+        (input)="checkNumberValidity(); checkInputLength()"
+        [(ngModel)]="pourcentValue"
+        style="margin-bottom: 3%"
+      />
+    </div>
+    <div
+      *ngIf="
+        checkNumber &&
+        paiementType != 'Sans prise en charge' &&
+        paiementType != 'Prise en charge total'
+      "
+      class="validation-message"
+      style="margin-bottom: 3%"
+    >
+      Le pourcentage doit etre entre et différent de 0 et 100.
+    </div>
+    <div class="items">
+      <button
+        [disabled]="isButtonDisabled"
+        class="button-41"
+        role="button"
+        (click)="AcceptCourse()"
+      >
+        Confirmer
+      </button>
+
+      <button
+        class="button-42"
+        role="button"
+        style="
+          cursor: pointer;
+          background-image: linear-gradient(
+            -180deg,
+            rgba(0, 0, 255, 0),
+            rgba(0, 0, 255, 0)
+          );
+          color: #181a36;
+          border: rgba(117, 125, 136, 0.45) 1px solid;
+          margin-left: 2%;
+        "
+        (click)="close()"
+      >
+        Annuler
+      </button>
+    </div>
+    <label
+      style="color: red; font-size: 18px; margin-top: 15%"
+      *ngIf="ErrorMessage"
+    >
+      Une erreur s'est produite
+    </label>
+  </div>
+</div>
+<div class="hover_bkgr_fricc" *ngIf="ispopUpShowProfil" appOutside>
+  <span class="helper"></span>
+  <div class="inside-popup" style="padding: 3% 0">
+    <div class="title">
+      <p style="font-size: 19px">Créer le profil de client</p>
+    </div>
+    <div class="form-item" style="width: 100%">
+      <input
+        [(ngModel)]="nom"
+        (input)="checkFormValidity()"
+        class="input"
+        name="nom"
+        placeholder="Nom"
+        type="text"
+        style="margin-bottom: 3%"
+        required
+      />
+    </div>
+    <div class="form-item" style="width: 100%">
+      <input
+        [(ngModel)]="prenom"
+        (input)="checkFormValidity()"
+        class="input"
+        name="prénom"
+        placeholder="Prénom"
+        type="text"
+        style="margin-bottom: 3%"
+        required
+      />
+    </div>
+    <div class="form-item" style="width: 100%">
+      <input
+        class="input"
+        name="email"
+        [(ngModel)]="email"
+        placeholder="Email"
+        type="email"
+        style="margin-bottom: 3%"
+        (input)="isValidEmail(); checkFormValidity()"
+        required
+      />
+    </div>
+    <div *ngIf="showEmail" class="validation-message">
+      L'email n'est pas valide.
+    </div>
+
+    <div class="items" style="margin-top: 5%">
+      <button
+        class="button-41"
+        role="button"
+        (click)="CreateAccount()"
+        style="
+          background: #66cfc8;
+          border-radius: 10px;
+          border: none;
+          width: 20%;
+          padding: 0.5%;
+          cursor: pointer;
+        "
+        [disabled]="creationDisabled"
+      >
+        Créer
+      </button>
+
+      <button
+        class="button-42"
+        role="button"
+        (click)="close()"
+        style="
+          color: black;
+          border-radius: 10px;
+          border: non e;
+          width: 20%;
+          padding: 0.5%;
+          cursor: pointer;
+          margin-left: 2%;
+        "
+      >
+        Annuler
+      </button>
+    </div>
+    <label
+      style="color: red; font-size: 18px; margin-top: 15%"
+      *ngIf="ErrorMessage"
+    >
+      Une erreur s'est produite
+    </label>
+  </div>
+</div>
+<app-my-loader *ngIf="isExecuting"></app-my-loader>

@@ -1,0 +1,180 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,900);
+.head {
+  margin: 2% 0% 2% 8%;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.pageContainer{overflow-y: scroll;height: 93vh}
+
+.headtext {
+  font-family: Montserrat;
+  font-size: 16px;
+  color: #441879;
+  font-weight: bold;
+
+}
+
+
+.active {
+  border-right: #A13BCD 9px solid;
+}
+
+
+.headtextbtn{
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-family: Montserrat;
+  width: 100%;
+  margin-right: 2%
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+.specify {
+  width: 70%;
+  margin: 1% 0% 2% 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.specify2 {
+  width: 70%;
+  margin: 0% 0% 2% 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+*{
+  font-family: Montserrat;
+}
+*:focus{outline: none}
+
+.form{
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 150px;
+  font-family: Montserrat;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+.form-item{
+  position: relative;
+  margin-bottom: 15px
+}
+.form-item input{
+  display: block;
+  width: 400px;
+  height: 40px;
+  background: transparent;
+  border-bottom: 1px solid #c4c4c4;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  transition: all .3s ease;
+  padding: 0 15px;
+  border-radius: 10px;
+}
+.form-item input:focus{
+  border-color: #A13BCD
+}
+.form-item label{
+  position: absolute;
+  cursor: text;
+  z-index: 2;
+  top: 13px;
+  left: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  background: #fff;
+  padding: 0 10px;
+  color: #999;
+  transition: all .3s ease
+}
+.form-item input:focus + label,
+.form-item input:valid + label{
+  font-size: 11px;
+  top: -5px
+}
+.form-item input:focus + label{
+  color: #A13BCD
+}
+.password-input-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="password"] {
+  padding: 5px;
+}
+
+label {
+  position: absolute;
+  cursor: text;
+  z-index: 2;
+  top: 13px;
+  left: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  background: #fff;
+  padding: 0 10px;
+  color: #999;
+  transition: all .3s ease
+}
+select {
+
+  color: #441879;
+
+  border: #441879 1px solid;
+  display: block;
+  width: 430px;
+  height: 50px;
+  margin-top: -2%;
+  background: transparent;
+  border-bottom: 1px solid #c4c4c4;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  transition: all .3s ease;
+  padding: 0 15px;
+  border-radius: 10px;
+}
+
+
+input[type="password"]:not(:placeholder-shown) + label,
+input[type="password"]:focus + label {
+  font-size: 10px;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  width: 15px;
+}
+
+/* Adjust the width and height of the input field as needed */
+input[type="password"] {
+  width: 100%;
+  padding-right: 30px;
+}

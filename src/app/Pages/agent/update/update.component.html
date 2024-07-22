@@ -1,0 +1,107 @@
+<div class="pageContainer">
+    <welcome></welcome>
+  
+  <div class="container">
+
+    <div class="specify">
+      <h2 style="font-weight: bolder;font-family: Montserrat;color:#3D3751">Modifier Agent</h2>
+    </div>
+    <form class="specify" >
+      <div style="display: flex;flex-direction: row;align-items: center;justify-content: center;margin-bottom: 2%">
+        <div class="form-item">
+          <input type="text"  autocomplete='new-password' [(ngModel)]="firstName" name="firstName" required >
+          <label >Pénom agent</label>
+          <!-- <div style="color: red; font-size: 10px;" *ngIf="UpdateAgentForm.get('firstName').hasError('required')">
+
+            Le nom est requis.        
+            </div> -->
+        </div>
+        <div class="form-item" style="margin-left: 2%">
+          <input type="text"  autocomplete='new-password' [(ngModel)]="lastName" name="lastName" required>
+          <label >Nom agent</label>
+          <!-- <div style="color: red; font-size: 10px;" *ngIf="UpdateAgentForm.get('lastName').hasError('required')">
+
+            Le prénom est requis.    
+                </div> -->
+        </div>
+      </div>
+  
+      <div style="display: flex;flex-direction: row;align-items: center;justify-content: center;margin-bottom: 2%">
+        <div class="form-item">
+          <input type="text"  autocomplete="off" [(ngModel)]="email" name="email" required >
+          <label >E-mail</label>
+          <!-- <div style="color: red; font-size: 10px;" *ngIf="UpdateAgentForm.get('email').hasError('required')">
+            Email est requis.
+          </div>
+          <div style="color: red; font-size: 10px;" *ngIf="UpdateAgentForm.get('email').hasError('email')">
+            l'adresse email n'est pas juste         
+           </div> -->
+        </div>
+        <div class="form-item" style="margin-left: 2%">
+          <input type="text"  autocomplete="off" [(ngModel)]="userName" name ='userName' required >
+          <label >Username agent</label>
+       
+        </div>
+      </div>
+      <div style="display: flex;flex-direction: row;align-items: center;justify-content: center;margin-bottom: 2%">
+        <div class="form-item" >
+          <div class="password-input-container">
+            <input type="{{ showPassword ? 'text' : 'password' }}"    [(ngModel)]="password" required >
+            <label >Mot de passe</label>
+
+            <a (click)="togglePasswordVisibility()">
+                <img *ngIf="showPassword" src="assets/images/eye.png" class="password-toggle-icon">
+                <img *ngIf="!showPassword" src="assets/images/hidden.png" class="password-toggle-icon">
+            </a>
+        </div>
+
+     
+          <!-- </div> -->
+   
+       
+    </div>
+        <div class="form-item" style="margin-left: 2%;"  >
+
+          <select  
+          [(ngModel)]="roleIds"  
+          name="roleIds"
+          *ngIf="hasRequiredRole('ENTREPRISE_SUPER_ADMIN')"
+          >
+          <option value="" disabled selected hidden>Sélectionnez un role</option>
+    
+             <option  *ngFor="let p of role" value="{{p.id}}" > {{p.libelle}}</option>
+          </select>
+          </div>
+      
+      </div>
+  
+      
+
+        <div class="form-item" >
+
+          <select 
+          *ngIf="hasRequiredRole('ENTREPRISE_SUPER_ADMIN')"
+          [(ngModel)]="agencyId" 
+          name="agencyId"
+          >
+          <option value="" disabled selected hidden>Sélectionnez une agence</option>
+    
+             <option  *ngFor="let p of agency" value="{{p.id}}"> {{p.intitule}}</option>
+          </select>
+          </div>
+      
+  
+    </form>
+    <div class="specify2">
+      <button style="background: #66CFC8;border-radius: 10px;border: none;width: 20%;padding: 0.5%;  cursor: pointer;"  (click)="UpdateAgent()">
+        <p style="color: white;font-family: Montserrat">Modifier</p></button>
+    </div>
+    <!--  <ng-container *ngFor="let item of errorList">
+      <p style="color: red;display: flex;flex-direction: row;align-items: center;justify-content: center" *ngIf="item.cin">{{item.cin}}</p>
+      <p style="color: red;display: flex;flex-direction: row;align-items: center;justify-content: center" *ngIf="item.email">{{item.email}}</p>
+      <p style="color: red;display: flex;flex-direction: row;align-items: center;justify-content: center" *ngIf="item.licenseNumber">{{item.licenseNumber}}</p>
+      <p style="color: red;display: flex;flex-direction: row;align-items: center;justify-content: center" *ngIf="item.phoneNumber">{{item.phoneNumber}}</p>
+      </ng-container>-->
+  </div>
+  </div>
+  

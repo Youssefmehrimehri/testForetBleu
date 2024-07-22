@@ -1,0 +1,24 @@
+<div class="head">
+  <div class="headtext">
+    <p>Bienvenu(e) !</p>
+  </div>
+  <div class="image-container">
+     <div *ngFor="let logo of logos">
+       <img
+        *ngIf="
+          hasRequiredRole('ENTREPRISE_SUPER_ADMIN') ||
+          hasRequiredRole('ENTREPRISE_ADMIN') ||
+            hasRequiredRole('ENTREPRISE_AGENT')
+        "
+        [src]="getSafeImageUrl(logo?.imageUrl)"
+        (error)="handleImageError($event)"
+        style="width: 200px !important;"
+        />
+        
+      
+      <!-- <img src="../../../assets/porsheTwo.svg">
+      <img src="../../../assets/audiLogo.svg"> -->
+
+    </div>
+  </div>
+</div>

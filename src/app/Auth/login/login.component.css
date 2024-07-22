@@ -1,0 +1,95 @@
+
+*{
+  font-family: 'montserrat';
+
+}
+
+.container{
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.left{
+  width: 50%;
+  height: 89vh;
+  background: linear-gradient(118.33deg, #A13BCD 0%, #431879 99.01%);
+  padding: 2% 3%;
+}
+
+.content{
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+
+.right{
+  width: 50%;
+  height: 89vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.rightContent{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.rightContent img{
+  margin-bottom: 20%;
+}
+
+.title{
+  font-weight: 700;
+  font-size: 24px;
+  color: #FA9F42;
+  margin-bottom: 0%;
+}
+
+.description{
+  font-weight: 400;
+  font-size: 14px;
+  color: #6B7A91;
+  margin-bottom: 15%;
+}
+
+.inputfield{
+  background: rgba(107, 122, 145, 0.1);
+  border-radius: 11px;
+  padding: 3%;
+  margin-bottom: 5%;
+}
+
+.inputfield input{
+  background-color: transparent;
+  border: none;
+  width: 100%;
+
+}
+
+
+.loginForm{
+  width: 100%;
+}
+
+.inputfield input:focus{
+  outline: none;
+}
+
+.btn{
+  text-align: center;
+  background-color: #FA9F42;
+  color: #fafafa;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 0.1% 0;
+  border-radius: 10px;
+  cursor: pointer;
+}
