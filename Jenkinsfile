@@ -29,17 +29,6 @@ pipeline {
                 }
             }
         }
-        stage('Clean Up Old Docker Images') {
-            steps {
-                script {
-                    echo "Cleaning up old Docker images..."
-                    sh """
-                    docker images --format '{{.Repository}}:{{.Tag}} {{.CreatedAt}}' | grep ${DOCKER_REGISTRY_URL}/msaidc/beem-front | sort -k2 -r | tail -n +3 | awk '{print \$1}' | xargs -r docker rmi
-                    """
-                    echo "Old Docker images cleaned up."
-                }
-            }
-        }
         stage('Deploy with Ansible') {
             steps {
                 script {
