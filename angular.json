@@ -23,7 +23,7 @@
               "jquery",
               "url",
               "moment"
-           ],
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -31,7 +31,6 @@
             "styles": [
               "src/styles.css",
               "node_modules/ng2-daterangepicker/assets/daterangepicker.css"
-
             ],
             "scripts": [],
             "vendorChunk": true,
@@ -68,8 +67,7 @@
                   "maximumError": "12kb"
                 }
               ]
-            }
-          },
+            },
             "test": {
               "fileReplacements": [
                 {
