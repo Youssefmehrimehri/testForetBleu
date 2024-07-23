@@ -39,12 +39,3 @@
 
     - name: Start backend container for beem_back_container
       win_shell: docker run -d --name {{ container_name }} -p 4201:80 --restart always {{ full_image_name }}
-
-    - name: Clean up old Docker images
-      win_shell: |
-        docker images --format '{{ "{{.Repository}}:{{.Tag}} {{.CreatedAt}}" }}' |
-        Where-Object { $_ -match '{{ "{{ front_image_name }}" }}' } |
-        Sort-Object { $_.Split(' ')[1] } -Descending |
-        Select-Object -Skip 2 |
-        ForEach-Object { $_.Split(' ')[0] } |
-        ForEach-Object { docker rmi $_ }
