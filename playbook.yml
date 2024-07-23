@@ -1,1 +1,50 @@
+- name: Deploy Docker Container using Docker Compose
+  hosts: windows
+  become: yes
+  become_method: runas
+  become_user: SRV-DEV6  # Replace with the appropriate user
 
+  vars:
+    front_image_name: "{{ front_image_name }}"
+    front_forest_image_tag: "{{ front_image_tag }}"
+    full_image_name: "{{ front_image_name }}:{{ front_image_tag }}"
+    container_name: "beem_blue_forest_container"
+
+  tasks:
+    - name: Log in to Private Docker Registry
+      win_shell: docker login -u Said -p 25205207 192.168.1.161:5000
+      no_log: true
+
+    - name: Get current front image
+      win_shell: |
+        $image = docker inspect --format='{{"{{.Config.Image}}"}}' beem_front_container
+        if (!$?) { echo "none" }
+        else { echo $image }
+      register: current_front_image
+      ignore_errors: yes
+
+    - name: Debug current front image
+      debug:
+        msg: "Current front image: {{ current_front_image.stdout }}"
+
+    - name: Remove existing front container if image has changed
+      win_shell: docker rm -f beem_front_container
+      when: current_front_image.stdout is defined and current_front_image.stdout != full_image_name
+
+    - name: Verify front_forestend image exists
+      win_shell: docker pull {{ full_image_name }}
+      register: front_image_check
+      failed_when: "'manifest unknown' in front_image_check.stderr"
+      changed_when: false
+
+    - name: Start backend container for beem_back_container
+      win_shell: docker run -d --name {{ container_name }} -p 4201:80 --restart always {{ full_image_name }}
+
+    - name: Clean up old Docker images
+      win_shell: |
+        docker images --format '{{ "{{.Repository}}:{{.Tag}} {{.CreatedAt}}" }}' |
+        Where-Object { $_ -match '{{ "{{ front_image_name }}" }}' } |
+        Sort-Object { $_.Split(' ')[1] } -Descending |
+        Select-Object -Skip 2 |
+        ForEach-Object { $_.Split(' ')[0] } |
+        ForEach-Object { docker rmi $_ }
