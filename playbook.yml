@@ -6,7 +6,7 @@
 
   vars:
     front_image_name: "{{ front_image_name }}"
-    front_forest_image_tag: "{{ front_image_tag }}"
+    front_image_tag: "{{ front_image_tag }}"
     full_image_name: "{{ front_image_name }}:{{ front_image_tag }}"
     container_name: "beem_blue_forest_container"
 
