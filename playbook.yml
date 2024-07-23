@@ -17,7 +17,7 @@
 
     - name: Get current front image
       win_shell: |
-        $image = docker inspect --format='{{"{{.Config.Image}}"}}' beem_front_container
+        $image = docker inspect --format='{{"{{.Config.Image}}"}}' beem_blue_forest_container
         if (!$?) { echo "none" }
         else { echo $image }
       register: current_front_image
