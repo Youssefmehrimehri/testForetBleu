@@ -28,7 +28,7 @@
         msg: "Current front image: {{ current_front_image.stdout }}"
 
     - name: Remove existing front container if image has changed
-      win_shell: docker rm -f beem_front_container
+      win_shell: docker rm -f {{ container_name }} 
       when: current_front_image.stdout is defined and current_front_image.stdout != full_image_name
 
     - name: Verify front_forestend image exists
