@@ -1,9 +1,9 @@
 pipeline {
     agent any
     environment {
-        DOCKER_REGISTRY_URL = 'http://192.168.1.161:5000'
+        DOCKER_REGISTRY_URL = 'http://192.168.1.162:5001'
         DOCKER_REGISTRY_CREDENTIALS = 'e911e14d-468d-4a52-8864-249632a96b18'
-        FRONT_IMAGE_NAME = '192.168.1.161:5000/msaidc/beem-blue-forest'
+        FRONT_IMAGE_NAME = '192.168.1.162:5001/msaidc/beem-blue-forest'
     }
     stages {
         stage('Checkout') {
