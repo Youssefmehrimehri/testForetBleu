@@ -12,7 +12,7 @@
 
   tasks:
     - name: Log in to Private Docker Registry
-      win_shell: docker login -u Said -p 25205207 192.168.1.161:5000
+      win_shell: docker login -u Said -p 25205207 192.168.1.162:5001
       no_log: true
 
     - name: Get current front image
